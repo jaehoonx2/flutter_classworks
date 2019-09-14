@@ -1,6 +1,8 @@
-# startup_namer
+# flutter_classworks
 
-A new Flutter application.
+* This project is for my studying Flutter, which is a kind of MCPF.
+* This project is class/homework material of the course Mobile App Development of HGU.
+* All source codes are committed after the homework submit deadline.
 
 ## Getting Started
 
