@@ -1,4 +1,4 @@
-# friendlychat
+# week04
 
 A new Flutter application.
 
