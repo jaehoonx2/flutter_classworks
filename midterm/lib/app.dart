@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'home.dart';
 import 'login.dart';
+import 'home.dart';
+import 'search.dart';
+import 'favorite.dart';
+import 'website.dart';
+import 'mypage.dart';
 
 class ShrineApp extends StatelessWidget {
 
@@ -11,6 +15,13 @@ class ShrineApp extends StatelessWidget {
       title: 'Shrine',
       home: HomePage(),
       initialRoute: '/login',
+      routes: {
+        '/home': (context) => HomePage(),
+        '/search': (context) => SearchPage(),
+        '/favorite': (context) => FavoriteHotelsPage(),
+        '/website': (context) => WebViewExample(),
+        '/mypage': (context) => MyPage(),
+      },
       onGenerateRoute: _getRoute,
     );
   }

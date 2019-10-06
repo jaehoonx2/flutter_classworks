@@ -61,7 +61,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('SHRINE'),
+        title: Text('Main'),
+        centerTitle : true,
         actions: <Widget>[
           IconButton(
             icon: Icon(
@@ -70,26 +71,30 @@ class HomePage extends StatelessWidget {
             ),
             onPressed: () {
               print('Search button');
+              Navigator.pushNamed(context, '/search');
             },
           ),
           IconButton(
             icon: Icon(
-              Icons.tune,
-              semanticLabel: 'filter',
+              Icons.language,
+              semanticLabel: 'website',
             ),
             onPressed: () {
-              print('Filter button');
+              print('Website button');
+              Navigator.pushNamed(context, '/website');
             },
           ),
         ],
       ),
-      body: Center(
-        child: GridView.count(
-          crossAxisCount: 2,
-          padding: EdgeInsets.all(16.0),
-          childAspectRatio: 8.0 / 9.0,
-          children: _buildGridCards(context),
-        ),
+      body: OrientationBuilder(
+        builder: (context, orientation) {
+          return GridView.count(
+            crossAxisCount: orientation == Orientation.portrait ? 2 : 3,
+            padding: EdgeInsets.all(16.0),
+            childAspectRatio: 8.0 / 9.0,
+            children: _buildGridCards(context),
+          );
+        },
       ),
       drawer: Drawer(
         child: ListView(
@@ -111,6 +116,7 @@ class HomePage extends StatelessWidget {
               leading: Icon(Icons.home),
               title: Text('Home'),
               onTap: () {
+                Navigator.pushNamed(context, '/home');
                 // Navigator.pop(context);
               },
             ),
@@ -118,6 +124,7 @@ class HomePage extends StatelessWidget {
               leading: Icon(Icons.search),
               title: Text('Search'),
               onTap: () {
+                Navigator.pushNamed(context, '/search');
                 // Navigator.pop(context);
               },
             ),
@@ -125,6 +132,7 @@ class HomePage extends StatelessWidget {
               leading: Icon(Icons.location_city),
               title: Text('Favorite Hotel'),
               onTap: () {
+                Navigator.pushNamed(context, '/favorite');
                 // Navigator.pop(context);
               },
             ),
@@ -133,12 +141,14 @@ class HomePage extends StatelessWidget {
               title: Text('Website'),
               onTap: () {
                 // Navigator.pop(context);
+                Navigator.pushNamed(context, '/website');
               },
             ),
             ListTile(
               leading: Icon(Icons.person),
               title: Text('My Page'),
               onTap: () {
+                Navigator.pushNamed(context, '/mypage');
                 // Navigator.pop(context);
               },
             ),
