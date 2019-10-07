@@ -16,6 +16,7 @@ class _WebViewExampleState extends State<WebViewExample> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Website'),
+        centerTitle : true,
       ),
       body: Builder(builder: (BuildContext context) {
         return WebView(

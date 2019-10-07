@@ -6,6 +6,7 @@ class MyPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('My Page'),
+        centerTitle : true,
       ),
       body: Center(
         child: RaisedButton(

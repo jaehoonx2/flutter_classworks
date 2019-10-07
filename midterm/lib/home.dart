@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
-import 'model/products_repository.dart';
-import 'model/product.dart';
 
 class HomePage extends StatelessWidget {
+  static final kTextBoxHeight = 65.0;
 
   List<Card> _buildGridCards(BuildContext context) {
-    List<Product> products = ProductsRepository.loadProducts(Category.all);
+    var stars = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(Icons.star, color: Colors.yellow[500], size: 15),
+        Icon(Icons.star, color: Colors.yellow[500], size: 15),
+        Icon(Icons.star, color: Colors.yellow[500], size: 15),
+      ],
+    );
 
-    if (products == null || products.isEmpty) {
-      return const <Card>[];
-    }
-
-    final ThemeData theme = Theme.of(context);
-    final NumberFormat formatter = NumberFormat.simpleCurrency(
-        locale: Localizations.localeOf(context).toString());
-
-    return products.map((product) {
-      return Card(
+    List<Card> hotels = [
+      new Card(
         clipBehavior: Clip.antiAlias,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,26 +22,50 @@ class HomePage extends StatelessWidget {
             AspectRatio(
               aspectRatio: 18 / 11,
               child: Image.asset(
-                product.assetName,
-                package: product.assetPackage,
-                fit: BoxFit.fitWidth,
+                'hotels/0-0.jpg',
+                fit: BoxFit.cover,
               ),
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 5.0),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    stars,
                     Text(
-                      product.name,
-                      style: theme.textTheme.title,
+                      '비전관',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w800,
+                      ),
                       maxLines: 1,
                     ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      formatter.format(product.price),
-                      style: theme.textTheme.body2,
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          color: Colors.blue[500],
+                          size: 15,
+                        ),
+                        Text(
+                          '경북 포항시 한동로 558',
+                          style: TextStyle(fontSize: 10),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: FlatButton(
+                          onPressed: null,
+                          child: Text(
+                              'More',
+                              style: TextStyle(
+                                color: Colors.blue[500],
+                                fontSize: 10,
+                              ),
+                          )
+                      ),
                     ),
                   ],
                 ),
@@ -53,8 +73,309 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
-      );
-    }).toList();
+      ),
+      new Card(
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            AspectRatio(
+              aspectRatio: 18 / 11,
+              child: Image.asset(
+                'hotels/1-0.jpg',
+                fit: BoxFit.fitWidth,
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 5.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    stars,
+                    Text(
+                      '창조관',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w800,
+                      ),
+                      maxLines: 1,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          color: Colors.blue[500],
+                          size: 15,
+                        ),
+                        Text(
+                          '경북 포항시 한동로 558',
+                          style: TextStyle(fontSize: 10),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: FlatButton(
+                          onPressed: null,
+                          child: Text(
+                            'More',
+                            style: TextStyle(
+                              color: Colors.blue[500],
+                              fontSize: 10,
+                            ),
+                          )
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      new Card(
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            AspectRatio(
+              aspectRatio: 18 / 11,
+              child: Image.asset(
+                'hotels/2-0.jpg',
+                fit: BoxFit.fitWidth,
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 5.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    stars,
+                    Text(
+                      '벧엘관',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w800,
+                      ),
+                      maxLines: 1,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          color: Colors.blue[500],
+                          size: 15,
+                        ),
+                        Text(
+                          '경북 포항시 한동로 558',
+                          style: TextStyle(fontSize: 10),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: FlatButton(
+                          onPressed: null,
+                          child: Text(
+                            'More',
+                            style: TextStyle(
+                              color: Colors.blue[500],
+                              fontSize: 10,
+                            ),
+                          )
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      new Card(
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            AspectRatio(
+              aspectRatio: 18 / 11,
+              child: Image.asset(
+                'hotels/3-0.jpg',
+                fit: BoxFit.fitWidth,
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 5.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    stars,
+                    Text(
+                      '로뎀관',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w800,
+                      ),
+                      maxLines: 1,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          color: Colors.blue[500],
+                          size: 15,
+                        ),
+                        Text(
+                          '경북 포항시 한동로 558',
+                          style: TextStyle(fontSize: 10),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: FlatButton(
+                          onPressed: null,
+                          child: Text(
+                            'More',
+                            style: TextStyle(
+                              color: Colors.blue[500],
+                              fontSize: 10,
+                            ),
+                          )
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      new Card(
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            AspectRatio(
+              aspectRatio: 18 / 11,
+              child: Image.asset(
+                'hotels/4-0.jpg',
+                fit: BoxFit.fitWidth,
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 5.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    stars,
+                    Text(
+                      '국제관',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w800,
+                      ),
+                      maxLines: 1,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          color: Colors.blue[500],
+                          size: 15,
+                        ),
+                        Text(
+                          '경북 포항시 한동로 558',
+                          style: TextStyle(fontSize: 10),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: FlatButton(
+                          onPressed: null,
+                          child: Text(
+                            'More',
+                            style: TextStyle(
+                              color: Colors.blue[500],
+                              fontSize: 10,
+                            ),
+                          )
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      new Card(
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            AspectRatio(
+              aspectRatio: 18 / 11,
+              child: Image.asset(
+                'hotels/5-0.jpg',
+                fit: BoxFit.fitWidth,
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 5.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    stars,
+                    Text(
+                      '은혜관',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w800,
+                      ),
+                      maxLines: 1,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          color: Colors.blue[500],
+                          size: 15,
+                        ),
+                        Text(
+                          '경북 포항시 한동로 558',
+                          style: TextStyle(fontSize: 10),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: FlatButton(
+                          onPressed: null,
+                          child: Text(
+                            'More',
+                            style: TextStyle(
+                              color: Colors.blue[500],
+                              fontSize: 10,
+                            ),
+                          )
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ];
+    return hotels;
   }
 
   @override
@@ -90,7 +411,7 @@ class HomePage extends StatelessWidget {
         builder: (context, orientation) {
           return GridView.count(
             crossAxisCount: orientation == Orientation.portrait ? 2 : 3,
-            padding: EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(8.0),
             childAspectRatio: 8.0 / 9.0,
             children: _buildGridCards(context),
           );
