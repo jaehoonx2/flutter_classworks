@@ -9,6 +9,7 @@ dependencies:
   cupertino_icons: ^0.1.0
   shrine_images: 1.1.1
   webview_flutter: ^0.3.10+4
+  carousel_slider: ^1.3.0
 
 dev_dependencies:
   flutter_test:

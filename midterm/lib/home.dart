@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'detail.dart';
 
 class HomePage extends StatelessWidget {
   static final kTextBoxHeight = 65.0;
+
 
   List<Card> _buildGridCards(BuildContext context) {
     var stars = Row(
@@ -13,7 +15,7 @@ class HomePage extends StatelessWidget {
       ],
     );
 
-    List<Card> hotels = [
+    List<Card> cards = [
       new Card(
         clipBehavior: Clip.antiAlias,
         child: Column(
@@ -57,13 +59,19 @@ class HomePage extends StatelessWidget {
                     ),
                     Expanded(
                       child: FlatButton(
-                          onPressed: null,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetailPage(hotelIdx: 0,),
+                                ));
+                          },
                           child: Text(
-                              'More',
-                              style: TextStyle(
-                                color: Colors.blue[500],
-                                fontSize: 10,
-                              ),
+                            'More',
+                            style: TextStyle(
+                              color: Colors.blue[500],
+                              fontSize: 10,
+                            ),
                           )
                       ),
                     ),
@@ -117,7 +125,13 @@ class HomePage extends StatelessWidget {
                     ),
                     Expanded(
                       child: FlatButton(
-                          onPressed: null,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetailPage(hotelIdx: 1,),
+                                ));
+                          },
                           child: Text(
                             'More',
                             style: TextStyle(
@@ -177,7 +191,13 @@ class HomePage extends StatelessWidget {
                     ),
                     Expanded(
                       child: FlatButton(
-                          onPressed: null,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetailPage(hotelIdx: 2,),
+                                ));
+                          },
                           child: Text(
                             'More',
                             style: TextStyle(
@@ -237,7 +257,13 @@ class HomePage extends StatelessWidget {
                     ),
                     Expanded(
                       child: FlatButton(
-                          onPressed: null,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetailPage(hotelIdx: 3,),
+                                ));
+                          },
                           child: Text(
                             'More',
                             style: TextStyle(
@@ -297,7 +323,13 @@ class HomePage extends StatelessWidget {
                     ),
                     Expanded(
                       child: FlatButton(
-                          onPressed: null,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetailPage(hotelIdx: 4,),
+                                ));
+                          },
                           child: Text(
                             'More',
                             style: TextStyle(
@@ -357,7 +389,13 @@ class HomePage extends StatelessWidget {
                     ),
                     Expanded(
                       child: FlatButton(
-                          onPressed: null,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetailPage(hotelIdx: 5,),
+                                ));
+                          },
                           child: Text(
                             'More',
                             style: TextStyle(
@@ -375,7 +413,7 @@ class HomePage extends StatelessWidget {
         ),
       ),
     ];
-    return hotels;
+    return cards;
   }
 
   @override

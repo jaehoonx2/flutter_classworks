@@ -9,12 +9,7 @@ class FavoriteHotelsPage extends StatelessWidget {
         centerTitle : true,
       ),
       body: Center(
-        child: RaisedButton(
-          child: Text('Favorite Hotels Page'),
-          onPressed: () {
-            // Do Something
-          },
-        ),
+        child: Text('Favorite Hotels Page'),
       ),
     );
   }
