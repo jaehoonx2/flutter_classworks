@@ -20,8 +20,6 @@ class HomePage extends StatelessWidget {
     }
 
     final ThemeData theme = Theme.of(context);
-//    final NumberFormat formatter = NumberFormat.simpleCurrency(
-//        locale: Localizations.localeOf(context).toString());
 
     return products.map((product) {
       return Card(
@@ -61,7 +59,6 @@ class HomePage extends StatelessWidget {
                     ),
                     SizedBox(height: 3.0),
                     Text(
-//                      formatter.format(product.stars),
                       product.address,
                       style: theme.textTheme.caption,
                       maxLines: 2,
@@ -76,7 +73,8 @@ class HomePage extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => DetailPage(product : product),
-                              ));
+                              )
+                          );
                         },
                       ),
                     ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'model/product.dart';
 import 'photohero.dart';
 
-final List<Product> _saved = List<Product>();
+final List<Product> saved = List<Product>();
 
 class DetailPage extends StatelessWidget {
   final Product product;
@@ -138,7 +138,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
 
   @override
   Widget build(BuildContext context) {
-    bool alreadySaved = _saved.contains(widget.product);
+    bool alreadySaved = saved.contains(widget.product);
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -150,9 +150,9 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
             onPressed: (){
               setState(() {
                 if (alreadySaved) {
-                  _saved.remove(widget.product);
+                  saved.remove(widget.product);
                 } else {
-                  _saved.add(widget.product);
+                  saved.add(widget.product);
                 }
               });
             },

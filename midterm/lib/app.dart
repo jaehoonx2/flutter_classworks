@@ -19,7 +19,7 @@ class ShrineApp extends StatelessWidget {
       routes: {
         '/home': (BuildContext context) => HomePage(),
         '/search': (BuildContext context) => SearchPage(),
-        '/favorite': (BuildContext context) => FavoriteHotelsPage(),
+        '/favorite': (BuildContext context) => FavoritePage(),
         '/website': (BuildContext context) => WebsitePage(),
         '/mypage': (BuildContext context) => MyPage(),
       },
