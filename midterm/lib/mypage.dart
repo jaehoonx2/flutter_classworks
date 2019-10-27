@@ -5,15 +5,10 @@ class MyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Page'),
+        title: const Text('Welcome to Flutter'),
       ),
-      body: Center(
-        child: RaisedButton(
-          child: Text('Launch screen'),
-          onPressed: () {
-            // Navigate to the second screen when tapped.
-          },
-        ),
+      body: const Center(
+        child: const Text('Hello World'),
       ),
     );
   }

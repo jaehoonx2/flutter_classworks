@@ -5,6 +5,7 @@ import 'model/products_repository.dart';
 import 'model/product.dart';
 
 import 'detail.dart';
+import 'photohero.dart';
 
 class HomePage extends StatelessWidget {
   final String title;
@@ -30,10 +31,10 @@ class HomePage extends StatelessWidget {
           children: <Widget>[
             AspectRatio(
               aspectRatio: 18 / 11,
-              child: Image.asset(
-                product.assetName,
-//                package: product.assetPackage,
-                fit: BoxFit.fitWidth,
+              child: PhotoHero(
+                photo: product.assetName,
+                width: double.infinity,
+                onTap: null,
               ),
             ),
             Expanded(
@@ -93,7 +94,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('SHRINE'),
+        title: Text('Main'),
         actions: <Widget>[
           IconButton(
             icon: Icon(
