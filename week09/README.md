@@ -1,6 +1,6 @@
-# baby_names
+# week09
 
-A new Flutter application.
+A new Flutter application with Firebase.
 
 ## Getting Started
 
