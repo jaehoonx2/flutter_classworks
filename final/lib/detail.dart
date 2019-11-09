@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'model/product.dart';
 import 'edit.dart';
@@ -25,7 +26,12 @@ class DetailPage extends StatelessWidget {
                 )
             );
           }),
-          IconButton(icon: Icon(Icons.delete), onPressed: null),
+          IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () async {
+                await Firestore.instance.collection('product').document(product.docID).delete();
+                Navigator.pop(context);
+          }),
         ],
       ),
       body: SingleChildScrollView(
