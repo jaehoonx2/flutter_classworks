@@ -12,32 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/foundation.dart';
-
-enum Category { all, accessories, clothing, home, }
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Product {
-  const Product({
-    @required this.category,
-    @required this.id,
-    @required this.isFeatured,
-    @required this.name,
-    @required this.price,
-  })  : assert(category != null),
-        assert(id != null),
-        assert(isFeatured != null),
-        assert(name != null),
-        assert(price != null);
-
-  final Category category;
-  final int id;
-  final bool isFeatured;
   final String name;
-  final int price;
+  final String price;
+  final String imgUrl;
+  final String description;
+  final DocumentReference reference;
 
-  String get assetName => '$id-0.jpg';
-  String get assetPackage => 'shrine_images';
+  Product.fromMap(Map<String, dynamic> map, {this.reference})
+      : assert(map['name'] != null),
+        assert(map['price'] != null),
+        assert(map['imgUrl'] != null),
+        assert(map['description'] != null),
+        name = map['name'],
+        price = map['price'],
+        imgUrl = map['imgUrl'],
+        description = map['description'];
 
-  @override
-  String toString() => "$name (id=$id)";
+  Product.fromSnapshot(DocumentSnapshot snapshot)
+      : this.fromMap(snapshot.data, reference: snapshot.reference);
 }
