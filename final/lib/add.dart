@@ -71,13 +71,15 @@ class _AddPageState extends State<AddPage> {
                   && descController.text.isNotEmpty) {
 
                 await getImageURL();
-                  
-                Firestore.instance.collection('product').document().
-                setData({
+
+                final collRef = Firestore.instance.collection('product');
+                DocumentReference docReferance = collRef.document();
+                docReferance.setData({
                   'name': nameController.text,
                   'price': priceController.text,
                   'description': descController.text,
                   'imgUrl' : _uploadedFileURL,
+                  'docID' : docReferance.documentID,
                 });
 
                 Fluttertoast.showToast(

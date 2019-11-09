@@ -19,6 +19,7 @@ class Product {
   final String price;
   final String imgUrl;
   final String description;
+  final String docID;
   final DocumentReference reference;
 
   Product.fromMap(Map<String, dynamic> map, {this.reference})
@@ -26,10 +27,12 @@ class Product {
         assert(map['price'] != null),
         assert(map['imgUrl'] != null),
         assert(map['description'] != null),
+        assert(map['docID'] != null),
         name = map['name'],
         price = map['price'],
         imgUrl = map['imgUrl'],
-        description = map['description'];
+        description = map['description'],
+        docID = map['docID'];
 
   Product.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);
