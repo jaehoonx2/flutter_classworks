@@ -1,15 +1,108 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'app.dart';
 
-class ProfilePage extends StatelessWidget {
+final FirebaseAuth _auth = FirebaseAuth.instance;
+
+class ProfilePage extends StatefulWidget {
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  var _finish;
+  FirebaseUser user;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _getUserInfo().then((finish) {
+      setState(() {
+        _finish = finish;
+      });
+    });
+  }
+
+  Future _getUserInfo() async => user = await _auth.currentUser();
+
+  void _signOut() async {
+    await _auth.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile'),
-      ),
-      body: const Center(
-        child: const Text('Hello World'),
-      ),
-    );
+    final ThemeData theme = Theme.of(context);
+
+    if(_finish == null)
+      return Text(
+        'LOADING...',
+        style: theme.textTheme.title,
+      );
+    else
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Profile'),
+          actions: <Widget>[
+            IconButton(icon: Icon(Icons.exit_to_app), onPressed: () async {
+              if (user == null) {
+                print('No one has signed in.');
+                return;
+              }
+
+              _signOut();
+              print(user.uid + ' has successfully signed out.');
+
+              // go to first
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ShrineApp(),
+                  )
+              );
+            },),
+          ],
+        ),
+        body: Column(
+          children: <Widget>[
+            Container(
+              height: MediaQuery.of(context).size.height / 3,
+              padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
+              child: user.photoUrl != null
+                  ? Image.network(user.photoUrl)
+                  : Image.network('http://handong.edu/site/handong/res/img/logo.png'
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  user.uid,
+                  style: theme.textTheme.title,
+                ),
+              ),
+            ),
+            Divider(
+              indent: 25,
+              endIndent: 25,
+              color: theme.primaryColor,
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  user.email != null
+                  ? user.email
+                  : 'anonymous',
+                  style: theme.textTheme.subtitle,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
   }
 }
