@@ -22,8 +22,9 @@ class Product {
   final String docID;
   final String authorID;
   final Timestamp created;
+  final int votes;
+  final List<dynamic> clickedID;
   Timestamp modified;
-  String clickedID;
 
   final DocumentReference reference;
 
@@ -35,6 +36,7 @@ class Product {
         assert(map['docID'] != null),
         assert(map['authorID'] != null),
         assert(map['created'] != null),
+        assert(map['votes'] != null),
         name = map['name'],
         price = map['price'],
         imgURL = map['imgURL'],
@@ -42,8 +44,9 @@ class Product {
         docID = map['docID'],
         authorID = map['authorID'],
         created = map['created'],
-        modified = map['modified'],
-        clickedID = map['clickedID'];
+        votes = map['votes'],
+        clickedID = map['clickedID'],
+        modified = map['modified'];
 
   Product.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);

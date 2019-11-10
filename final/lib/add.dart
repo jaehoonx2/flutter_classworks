@@ -86,6 +86,8 @@ class _AddPageState extends State<AddPage> {
                   'docID' : docReferance.documentID,
                   'authorID' : currentUser.uid,
                   'created' : FieldValue.serverTimestamp(),
+                  'votes' : 0,
+                  'clickedID' : [null,],
                   'modified' : null,
                 });
 
