@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path/path.dart' as Path;
 import 'model/product.dart';
+import 'home.dart';
 
 class EditPage extends StatefulWidget {
   final Product product;
@@ -31,7 +32,7 @@ class _EditPageState extends State<EditPage> {
     super.initState();
 
     _product = this.widget.product;
-    _uploadedFileURL = _product.imgUrl;
+    _uploadedFileURL = _product.imgURL;
 
     _nameController.text = _product.name;
     _priceController.text = _product.price;
@@ -48,6 +49,7 @@ class _EditPageState extends State<EditPage> {
   }
 
   Future updateImageURL() async {
+    if(_newImage != null) {
       StorageReference ref = FirebaseStorage.instance.ref().child(
           'products/${Path.basename(_newImage.path)}');
       StorageUploadTask uploadTask = ref.putFile(_newImage);
@@ -58,6 +60,7 @@ class _EditPageState extends State<EditPage> {
           _uploadedFileURL = fileURL;
         });
       });
+    }
   }
 
   @override
@@ -86,17 +89,10 @@ class _EditPageState extends State<EditPage> {
                     'name': _nameController.text,
                     'price': _priceController.text,
                     'description': _descController.text,
-                    'imgUrl' : _uploadedFileURL,
+                    'imgURL': _uploadedFileURL,
+                    'modified': FieldValue.serverTimestamp(),
                   });
                 });
-                
-//                Firestore.instance.collection('product').document(_product.docID).
-//                setData({
-//                  'name': _nameController.text,
-//                  'price': _priceController.text,
-//                  'description': _descController.text,
-//                  'imgUrl' : _uploadedFileURL,
-//                });
 
                 Fluttertoast.showToast(
                     msg: "Product updated successfully!",
@@ -108,11 +104,17 @@ class _EditPageState extends State<EditPage> {
                     fontSize: 16.0
                 );
 
-                _newImage = null;
-                await updateImageURL();
-                _nameController.clear();
-                _priceController.clear();
-                _descController.clear();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomePage(),
+                    )
+                );
+//                _newImage = null;
+//                await updateImageURL();
+//                _nameController.clear();
+//                _priceController.clear();
+//                _descController.clear();
 
               } else {
                 Fluttertoast.showToast(
@@ -173,6 +175,4 @@ class _EditPageState extends State<EditPage> {
       ),
     );
   }
-
-
 }

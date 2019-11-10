@@ -1,9 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'model/product.dart';
 import 'edit.dart';
 
 final List<Product> saved = List<Product>();
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class DetailPage extends StatelessWidget {
   final Product product;
@@ -18,30 +20,40 @@ class DetailPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Detail'),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.create), onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EditPage(product: product,),
-                )
-            );
+          IconButton(icon: Icon(Icons.create), onPressed: () async {
+            final FirebaseUser currentUser = await _auth.currentUser();
+            if(currentUser.uid == product.authorID) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditPage(product: product,),
+                  )
+              );
+            } else {
+              print('Wrong Acess!');
+            }
           }),
           IconButton(
               icon: Icon(Icons.delete),
               onPressed: () async {
-                await Firestore.instance.collection('product').document(product.docID).delete();
-                Navigator.pop(context);
+                final FirebaseUser currentUser = await _auth.currentUser();
+                if(currentUser.uid == product.authorID) {
+                  await Firestore.instance.collection('products').document(product.docID).delete();
+                  Navigator.pop(context);
+                } else {
+                  print('Wrong Acess!');
+                }
           }),
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(0.0),
-              alignment: Alignment.topLeft,
+            SizedBox(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height / 3,
               child: Image.network(
-                product.imgUrl,
+                product.imgURL,
                 fit: BoxFit.fill,
               ),
             ),
@@ -102,6 +114,34 @@ class DetailPage extends StatelessWidget {
                   fontSize: 15,
                   color: theme.primaryColor,
                 ),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 0.0),
+              child: Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Creator: ' + product.authorID,
+                      style: theme.textTheme.caption,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      product.created.toDate().toString() + ' Created',
+                      style: theme.textTheme.caption,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      product.modified != null ? product.modified.toDate().toString() + ' Modified' : '',
+                      style: theme.textTheme.caption,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

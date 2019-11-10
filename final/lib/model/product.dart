@@ -17,22 +17,33 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Product {
   final String name;
   final String price;
-  final String imgUrl;
+  final String imgURL;
   final String description;
   final String docID;
+  final String authorID;
+  final Timestamp created;
+  Timestamp modified;
+  String clickedID;
+
   final DocumentReference reference;
 
   Product.fromMap(Map<String, dynamic> map, {this.reference})
       : assert(map['name'] != null),
         assert(map['price'] != null),
-        assert(map['imgUrl'] != null),
+        assert(map['imgURL'] != null),
         assert(map['description'] != null),
         assert(map['docID'] != null),
+        assert(map['authorID'] != null),
+        assert(map['created'] != null),
         name = map['name'],
         price = map['price'],
-        imgUrl = map['imgUrl'],
+        imgURL = map['imgURL'],
         description = map['description'],
-        docID = map['docID'];
+        docID = map['docID'],
+        authorID = map['authorID'],
+        created = map['created'],
+        modified = map['modified'],
+        clickedID = map['clickedID'];
 
   Product.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);

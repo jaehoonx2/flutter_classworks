@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
 
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('product').snapshots(),
+      stream: Firestore.instance.collection('products').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
 
@@ -64,7 +64,7 @@ class HomePage extends StatelessWidget {
           AspectRatio(
             aspectRatio: 18 / 11,
             child: Image.network(
-              product.imgUrl,
+              product.imgURL,
               fit: BoxFit.fitWidth,
             ),
           ),

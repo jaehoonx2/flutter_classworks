@@ -2,11 +2,14 @@ import 'dart:io';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path/path.dart' as Path;
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class AddPage extends StatefulWidget {
   @override
@@ -72,14 +75,18 @@ class _AddPageState extends State<AddPage> {
 
                 await getImageURL();
 
-                final collRef = Firestore.instance.collection('product');
+                final FirebaseUser currentUser = await _auth.currentUser();
+                final collRef = Firestore.instance.collection('products');
                 DocumentReference docReferance = collRef.document();
                 docReferance.setData({
                   'name': nameController.text,
                   'price': priceController.text,
                   'description': descController.text,
-                  'imgUrl' : _uploadedFileURL,
+                  'imgURL' : _uploadedFileURL,
                   'docID' : docReferance.documentID,
+                  'authorID' : currentUser.uid,
+                  'created' : FieldValue.serverTimestamp(),
+                  'modified' : null,
                 });
 
                 Fluttertoast.showToast(
