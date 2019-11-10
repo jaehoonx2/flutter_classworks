@@ -70,9 +70,8 @@ class _ProfilePageState extends State<ProfilePage> {
               height: MediaQuery.of(context).size.height / 3,
               padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
               child: user.photoUrl != null
-                  ? Image.network(user.photoUrl)
-                  : Image.network('http://handong.edu/site/handong/res/img/logo.png'
-              ),
+                  ? Image.network(user.photoUrl, fit: BoxFit.fill)
+                  : Image.network('http://handong.edu/site/handong/res/img/logo.png', fit: BoxFit.fill),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
@@ -80,7 +79,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   user.uid,
-                  style: theme.textTheme.title,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: theme.primaryColor,
+                  ),
                 ),
               ),
             ),
@@ -94,10 +96,11 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  user.email != null
-                  ? user.email
-                  : 'anonymous',
-                  style: theme.textTheme.subtitle,
+                  user.email != null ? user.email : 'anonymous',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: theme.primaryColor,
+                  ),
                 ),
               ),
             ),

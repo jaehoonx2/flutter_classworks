@@ -4,7 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'detail.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String dropdownValue = 'ASC';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +39,37 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  Widget _buildSelector(BuildContext context) {
+    return  Center(
+      child: DropdownButton<String>(
+        value: dropdownValue,
+        icon: Icon(Icons.arrow_downward),
+        iconSize: 24,
+        elevation: 16,
+        style: TextStyle(
+            color: Colors.deepPurple
+        ),
+        underline: Container(
+          height: 2,
+          color: Colors.deepPurpleAccent,
+        ),
+        onChanged: (String newValue) {
+          setState(() {
+            dropdownValue = newValue;
+          });
+        },
+        items: <String>['ASC', 'DESC']
+            .map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        })
+            .toList(),
+      ),
+    );
+  }
+
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance.collection('products').snapshots(),
@@ -55,7 +93,7 @@ class HomePage extends StatelessWidget {
   Widget _buildGridCards(BuildContext context, DocumentSnapshot data) {
     final product = Product.fromSnapshot(data);
     final ThemeData theme = Theme.of(context);
-    
+
     return Card(
       clipBehavior: Clip.antiAlias,
       child: Column(
