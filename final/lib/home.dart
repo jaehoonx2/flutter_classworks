@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'model/product.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'model/product.dart';
 import 'detail.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String dropdownValue = 'ASC';
+  var stream = Firestore.instance.collection('products').snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -34,45 +35,48 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: _buildBody(context),
-      resizeToAvoidBottomInset: false,
-    );
-  }
+      body: Column(
+        children: <Widget>[
+          Center(
+            child: DropdownButton<String>(
+              value: dropdownValue,
+              icon: Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              style: TextStyle(color: Colors.deepPurple),
+              underline: Container(
+                height: 2,
+                color: Colors.deepPurpleAccent,
+              ),
+              onChanged: (String newValue) {
+                setState(() {
+                  dropdownValue = newValue;
 
-  Widget _buildSelector(BuildContext context) {
-    return  Center(
-      child: DropdownButton<String>(
-        value: dropdownValue,
-        icon: Icon(Icons.arrow_downward),
-        iconSize: 24,
-        elevation: 16,
-        style: TextStyle(
-            color: Colors.deepPurple
-        ),
-        underline: Container(
-          height: 2,
-          color: Colors.deepPurpleAccent,
-        ),
-        onChanged: (String newValue) {
-          setState(() {
-            dropdownValue = newValue;
-          });
-        },
-        items: <String>['ASC', 'DESC']
-            .map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        })
-            .toList(),
+                  if(dropdownValue == 'ASC')
+                    stream = Firestore.instance.collection("products").orderBy('price', descending: false).snapshots();
+                  else
+                    stream = Firestore.instance.collection("products").orderBy('price', descending: true).snapshots();
+                });
+              },
+              items: <String>['ASC', 'DESC']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+          ),
+          _buildBody(context),
+        ],
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('products').snapshots(),
+      stream: stream,
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
 
@@ -82,11 +86,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
-    return GridView.count(
-      crossAxisCount: 2,
-      padding: EdgeInsets.all(16.0),
-      childAspectRatio: 8.0 / 9.0,
-      children: snapshot.map((data) => _buildGridCards(context, data)).toList(),
+    return Flexible(
+      child: GridView.count(
+        crossAxisCount: 2,
+        padding: EdgeInsets.all(16.0),
+        childAspectRatio: 8.0 / 9.0,
+        children: snapshot.map((data) => _buildGridCards(context, data)).toList(),
+      ),
     );
   }
 
@@ -119,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SizedBox(height: 8.0),
                   Text(
-                    '\$ '+ product.price,
+                    '\$ '+ product.price.toString(),
                     style: theme.textTheme.caption,
                   ),
                   SizedBox(height: 8.0),

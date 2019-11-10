@@ -80,7 +80,7 @@ class _AddPageState extends State<AddPage> {
                 DocumentReference docReferance = collRef.document();
                 docReferance.setData({
                   'name': nameController.text,
-                  'price': priceController.text,
+                  'price': int.parse(priceController.text),
                   'description': descController.text,
                   'imgURL' : _uploadedFileURL,
                   'docID' : docReferance.documentID,

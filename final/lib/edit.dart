@@ -35,7 +35,7 @@ class _EditPageState extends State<EditPage> {
     _uploadedFileURL = _product.imgURL;
 
     _nameController.text = _product.name;
-    _priceController.text = _product.price;
+    _priceController.text = _product.price.toString();
     _descController.text = _product.description;
   }
 
@@ -87,7 +87,7 @@ class _EditPageState extends State<EditPage> {
                 Firestore.instance.runTransaction((transaction) async{
                   await transaction.update(_product.reference, {
                     'name': _nameController.text,
-                    'price': _priceController.text,
+                    'price': int.parse(_priceController.text),
                     'description': _descController.text,
                     'imgURL': _uploadedFileURL,
                     'modified': FieldValue.serverTimestamp(),

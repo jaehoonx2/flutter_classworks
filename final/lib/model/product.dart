@@ -16,7 +16,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Product {
   final String name;
-  final String price;
+  final int price;
   final String imgURL;
   final String description;
   final String docID;
@@ -35,7 +35,6 @@ class Product {
         assert(map['description'] != null),
         assert(map['docID'] != null),
         assert(map['authorID'] != null),
-        assert(map['created'] != null),
         assert(map['votes'] != null),
         name = map['name'],
         price = map['price'],

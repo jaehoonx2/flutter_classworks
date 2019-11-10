@@ -134,7 +134,7 @@ class DetailPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  '\$ '+ product.price,
+                  '\$ '+ product.price.toString(),
                   style: TextStyle(
                     fontSize: 20,
                     color: theme.primaryColor,
