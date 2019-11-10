@@ -37,7 +37,6 @@ class DetailPage extends StatelessWidget {
                   textColor: Colors.white,
                   fontSize: 16.0
               );
-              print('Wrong Acess!');
             }
           }),
           IconButton(
@@ -57,7 +56,6 @@ class DetailPage extends StatelessWidget {
                       textColor: Colors.white,
                       fontSize: 15.0
                   );
-                  print('Wrong Acess!');
                 }
           }),
         ],
@@ -159,29 +157,63 @@ class DetailPage extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(height: 100,),
           Container(
             padding: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 0.0),
             child: Column(
               children: <Widget>[
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Creator: ' + product.authorID,
-                    style: theme.textTheme.caption,
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        'Creator: ',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                      ),
+                      Text(
+                        product.authorID,
+                        style: theme.textTheme.caption,
+                      ),
+                    ],
                   ),
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    product.created.toDate().toString() + ' Created',
-                    style: theme.textTheme.caption,
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        product.created.toDate().toString(),
+                        style: theme.textTheme.caption,
+                      ),
+                      Text(
+                        ' Created',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    product.modified != null ? product.modified.toDate().toString() + ' Modified' : '',
-                    style: theme.textTheme.caption,
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        product.modified != null ? product.modified.toDate().toString() : '',
+                        style: theme.textTheme.caption,
+                      ),
+                      Text(
+                        product.modified != null ? ' Modified' : '',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
