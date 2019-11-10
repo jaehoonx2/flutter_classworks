@@ -19,12 +19,28 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
+  var _finish;
+  FirebaseUser user;
+
   final nameController = TextEditingController();
   final priceController = TextEditingController();
   final descController = TextEditingController();
 
   File _image;
-  String _uploadedFileURL = 'https://firebasestorage.googleapis.com/v0/b/final-app-db-df596.appspot.com/o/products%2Fdefault.png?alt=media&token=a18831b6-a69b-4604-b5f2-a9e39e8c9468';
+  String _imageURL;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _getUserInfo().then((finish) {
+      setState(() {
+        _finish = finish;
+      });
+    });
+  }
+
+  Future _getUserInfo() async => user = await _auth.currentUser();
 
   Future getGalleryImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -44,12 +60,12 @@ class _AddPageState extends State<AddPage> {
       print('File Uploaded');
       await ref.getDownloadURL().then((fileURL) {
         setState(() {
-          _uploadedFileURL = fileURL;
+          _imageURL = fileURL;
         });
       });
     } else {
       setState(() {
-        _uploadedFileURL = 'https://firebasestorage.googleapis.com/v0/b/final-app-db-df596.appspot.com/o/products%2Fdefault.png?alt=media&token=a18831b6-a69b-4604-b5f2-a9e39e8c9468';
+        _imageURL = 'http://handong.edu/site/handong/res/img/logo.png';
       });
     }
   }
@@ -75,16 +91,15 @@ class _AddPageState extends State<AddPage> {
 
                 await getImageURL();
 
-                final FirebaseUser currentUser = await _auth.currentUser();
                 final collRef = Firestore.instance.collection('products');
                 DocumentReference docReferance = collRef.document();
                 docReferance.setData({
                   'name': nameController.text,
                   'price': int.parse(priceController.text),
                   'description': descController.text,
-                  'imgURL' : _uploadedFileURL,
+                  'imgURL' : _imageURL,
                   'docID' : docReferance.documentID,
-                  'authorID' : currentUser.uid,
+                  'authorID' : user.uid,
                   'created' : FieldValue.serverTimestamp(),
                   'votes' : 0,
                   'clickedID' : [null,],
@@ -106,7 +121,6 @@ class _AddPageState extends State<AddPage> {
                 nameController.clear();
                 priceController.clear();
                 descController.clear();
-
               } else {
                 Fluttertoast.showToast(
                     msg: "PLEASE ENTER THE PRODUCT INFO!",
@@ -129,7 +143,7 @@ class _AddPageState extends State<AddPage> {
             height: MediaQuery.of(context).size.height / 3,
             child: _image != null
                 ? Image.file(_image, fit: BoxFit.fill)
-                : Image.network(_uploadedFileURL, fit: BoxFit.fill),
+                : Image.network('http://handong.edu/site/handong/res/img/logo.png', fit: BoxFit.fill),
           ),
           Align(
             alignment: Alignment.centerRight,
