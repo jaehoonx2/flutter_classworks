@@ -74,16 +74,32 @@ class _ProfilePageState extends State<ProfilePage> {
                   : Image.network('http://handong.edu/site/handong/res/img/logo.png', fit: BoxFit.fill),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  user.uid,
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: theme.primaryColor,
+              padding: EdgeInsets.fromLTRB(25, 40, 25, 10),
+              child: Column(
+                children: <Widget>[
+                  Align(
+                    child: Text(
+                      '<Your UID>',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: theme.primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    alignment: Alignment.centerLeft,
                   ),
-                ),
+                  SizedBox(height: 10,),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      user.uid,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: theme.primaryColor,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             Divider(
@@ -93,15 +109,31 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  user.email != null ? user.email : 'anonymous',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: theme.primaryColor,
+              child: Column(
+                children: <Widget>[
+                  Align(
+                    child: Text(
+                      '<Your email>',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: theme.primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    alignment: Alignment.centerLeft,
                   ),
-                ),
+                  SizedBox(height: 10,),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      user.email != null ? user.email : 'anonymous',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: theme.primaryColor,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

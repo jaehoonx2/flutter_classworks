@@ -120,7 +120,6 @@ class DetailPage extends StatelessWidget {
                   child: _buildVotes(context, data),
                   alignment: Alignment.centerRight,
                 ),
-
               ],
             ),
           ),
