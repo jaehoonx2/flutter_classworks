@@ -70,5 +70,7 @@
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
-**/final/ios/Runner/GoogleService-Info.plist
-**/final/android/app/google-services.json
+final/ios/Runner/GoogleService-Info.plist
+final/android/app/google-services.json
+week09/android/app/google-services.json
+week09/ios/Runner/GoogleService-Info.plist
